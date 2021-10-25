@@ -18,12 +18,10 @@
 # timepoint               = 14d/21d, injected/contralateral, wt/KO, etc
 # treatment               = 14d_vehicle/14d_PD1/21d_vehicle/21d_PD1/etc (note timepoint before treatment)
 
-
 ### OLD SCRIPT RETAINED FOR RUNNING WITHIN RSTUDIO ###
 #setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 #getwd()
 ### OLD SCRIPT RETAINED FOR RUNNING WITHIN RSTUDIO ###
-
 
 location = 'alignment_files/samples/'
 
