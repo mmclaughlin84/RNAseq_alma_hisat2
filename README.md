@@ -12,11 +12,14 @@ sftp <user_name>@gweusftp.brooks.com
 # List the files, or navigate about to check directory structure
 ls -lh
 cd <directory_name>
+
 # Set ‘local directory’, ie where on your computer to download the folder to - Use lls to confirm location is as expected
 lcd /Volumes/DATA/DRI/URTHY/TARGTHER/<user_name>/
 lls
+
 # start transfer with flags: -r recursive and -a attempt to resume partial transfers of existing files 
 mget -ra <directory_name>
+
 # If files fail to transfer, repeat the above line
 # exit sftp
 exit
