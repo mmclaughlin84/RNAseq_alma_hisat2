@@ -17,15 +17,19 @@ getwd() # to check
 
 # list files using pattern to match only fastq files
 list.files(pattern = 'q.gz$', recursive = TRUE) # check here, then used in line below to make dataframe
-rename_details <- data.frame(old_address = list.files(pattern = 'q.gz', recursive = TRUE))
+file_list <- data.frame(old_address = list.files(pattern = 'q.gz', recursive = TRUE))
 
+# Split file list into two columns for R1 and R2 files separately and extract old sample name with regular expression and gsub
 # These regular expression may need to be adjusted to extract the "old_sample_name"
 # alignment_files/samples/old_sample_name/R1R2_files
 # alignment_files/samples/old_sample_name_R1R2_files
-rename_details$old_sample_name <- gsub('alignment_files/samples/([A-Za-z0-9_-]*)/[A-Za-z0-9_-]*.[fastq]*.gz', '\\1', rename_details$old_address)
+rename_details <- data.frame(R1_files = file_list[grepl('R1', file_list$old_address), ])
+rename_details$R2_files <- file_list[grepl('R2', file_list$old_address), ]
+rename_details$old_sample_name <- gsub('alignment_files/samples/([A-Za-z0-9_-]*)/[A-Za-z0-9_-]*.[fastq]*.gz', '\\1', rename_details$R1_files)
+
 
 ### THIS SECTION SAVES A TEMPLATE FOR 'sample_names.csv' ###
-template <- rename_details[duplicated(rename_details$old_sample_name) ,c('old_sample_name'), drop = FALSE]
+template <- rename_details[ ,c('old_sample_name'), drop = FALSE]
 template$sample_name <- ''
 template$treatment_wo_timepoint <- ''
 template$timepoint <- ''
@@ -33,24 +37,19 @@ template$treatment <- ''
 write.csv(template, file = 'sample_names_template.csv', row.names = FALSE)
 ### GO RENAME "sample_names_template.csv" TO "sample_names.csv" AND POPULATE IT ###
 suppressWarnings(file.remove('sample_names_template.csv'))
-rm(template)
 
 # Import sample_names.csv, merge with rename_details
 sample_names <- read.csv('sample_names.csv')
 rename_details <- merge(rename_details, sample_names, by = 'old_sample_name', all = TRUE)
-rm(sample_names)
+rm(sample_names, file_list, template)
+
+# STOPPED HERE
 
 # Order by sample_name as it makes the print() in the for loops easier to follow
 rename_details <- rename_details[order(rename_details$sample_name), ]
 
-# Separate into two lists for R1 and R2 files 
-rename_details_R1 <- rename_details[grepl('R1', rename_details$old_address), ]
-rename_details_R2 <- rename_details[grepl('R2', rename_details$old_address), ]
-
 # Save tracking files
 write.csv(rename_details, file = 'alignment_files/samples/tracking_rscript.csv')
-write.csv(rename_details_R1, file = 'alignment_files/samples/tracking_rscript_R1.csv')
-write.csv(rename_details_R2, file = 'alignment_files/samples/tracking_rscript_R2.csv')
 
 # PROGRESSION: 2 loops - 1st for R1 files, 2nd for R2 files
 # [Loop 1]
