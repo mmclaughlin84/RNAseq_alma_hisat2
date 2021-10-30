@@ -262,11 +262,11 @@ alignment_files/samples/A002_015486/A002_015486_R2.fastq.gz
 ```
 
 
-##RUNNING ALIGNMENT SCRIPTS
+## RUNNING ALIGNMENT SCRIPTS
 
 .
 
-###SCRIPT 1: Wrangling Samples Into Set Folder Structure
+### SCRIPT 1: Wrangling Samples Into Set Folder Structure
 
 Script 1 is an Rscript that runs in Rstudio - so go open in Rstudio. Follow the instructions in the Rscript to rename the samples to full and correct sample naming. It structures the sample folder and R1/2 files in such a way that all additional alignment scripts run without alteration. The only exception is if you wish to alter the number of CPUs requested. This is explained at the two step where this is a suggestion.
 
