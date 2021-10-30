@@ -23,4 +23,6 @@ find ./alignment_files/samples/ -name "*_trim.fq.gz" -type f -delete
 find ./alignment_files/samples/ -name "*_unpaired.fq.gz" -type f | sort > alignment_files/samples/cleanup_unpaired_list.txt
 find ./alignment_files/samples/ -name "*_unpaired.fq.gz" -type f -delete
 
+# Remove the indexes folder and all it's contents
+rm -r .alignment_files/indexes/
 
