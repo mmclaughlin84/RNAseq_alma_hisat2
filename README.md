@@ -51,7 +51,10 @@ These would take too long to explain, but you can and read about how to use them
 
 
 Connect to ALMA HPC cluster with ssh
-`ssh user_name@alma.icr.ac.uk`
+
+```
+ssh user_name@alma.icr.ac.uk
+```
 
 There are 3 "ways" you use ALMA. 
 
@@ -59,23 +62,26 @@ There are 3 "ways" you use ALMA.
 2. An interactive session - get assigned 1-4 CPUs for testing and running small scripts (says node01)
 3. Submit slurm jobs using the 'sbatch' command - returns a jobid and jobs enter the job queue
 
-*NOTE: Normally you work entirely using an interactive session. You run bash scripts and submit sbatch jobs. However, you cannot navigate to the RDS in an interactive session. You can only do this using a login session. Therefore you navigate to the RDS and submit an sbatch job to transfer files from the RDS to ALMA, then start interactive session*
+*NOTE: Normally you work entirely using an interactive session. You run bash scripts and submit `sbatch` jobs. However, you cannot navigate to the RDS in an interactive session. You can only do this using a login session. Therefore you navigate to the RDS and submit an sbatch job to transfer files from the RDS to ALMA, then start interactive session*
 
-Start an interactive session for 6 hours with 1 CPU (default)
-`srun --pty -t 6:00:00 -p interactive bash`
+Start an interactive session; `exit` interactive session and return to login node, or exit login mode and quit ALMA completely.
 
-Start an interactive session for 4 hours with 4 CPUs (maximum possible in interactive session)
-`srun --cpus-per-task=4 --pty -t 04:00:00 -p interactive bash`
+```
+srun --pty -t 6:00:00 -p interactive bash						# 6h with default 1 CPU
+srun --cpus-per-task=4 --pty -t 04:00:00 -p interactive bash 	# 4h with 4 CPUs (maximum)
+exit  
+```
 
-Exit interactive session and return to login node, or exit login mode and quit ALMA completely
-`exit`
+
 
 ## Navigating between ALMA and the RDS (when logged into ALMA)
 
-`cd ~` Home on ALMA with ~
-`cd /home/vroulstone/` Home on ALMA via direct location
-`cd /data/scratch/DRI/URTHY/TARGTHER/vroulstone/` Team SCRATCH location (need to create <username_folder>)
-`cd /data/rds/DRI/URTHY/TARGTHER/vroulstone/` RDS location
+```
+cd ~ 											# Home on ALMA with ~
+cd /home/vroulstone/ 							# Home on ALMA via direct location
+cd /data/scratch/DRI/URTHY/TARGTHER/vroulstone/ # Team SCRATCH location (need to create <username_folder>)
+cd /data/rds/DRI/URTHY/TARGTHER/vroulstone/ 	# RDS location
+```
 
 You can.create links to SCRATCH or RDS locations to make life easier. Change to home folder first, then run the following ln commands.
 
@@ -129,7 +135,7 @@ squeue
 squeue -u vroulstone
 ```
 
-If your job was #123456, you can cancel it specifically, cancel all your running jobs with the -u flag, or cancel only pending jobs by adding --state==PENDING.
+If your job was #123456, you can cancel it specifically, cancel all your running jobs with the `-u` flag, or cancel only pending jobs by adding `--state==PENDING`.
 
 ```
 scancel 123456
@@ -140,7 +146,7 @@ scancel -u vroulstone --state==PENDING
 ## SLURM Jobs - sbatch scripts
 
 
-There are two types of slurm jobs, data transfers and actual computational jobs. One uses the 'data-transfer' partition, the other the 'compute' partition. The hash at the start of the line is necessary, comments are on the right. CPUS, memory, time, depends on the job. Jobs are killed when the time limit is reached, so give a safe amount of excess time.
+There are two types of slurm jobs, data transfers and actual computational jobs. One uses the `data-transfer` partition, the other the `compute` partition. The hash at the start of the line is necessary, comments are on the right. CPUS, memory, time, depends on the job. Jobs are killed when the time limit is reached, so give a safe amount of excess time.
 
 A data-transfer job, syncing (ie making a copy of) files from a hypothetical RDS location to the ALMA scratch location.
 
@@ -204,22 +210,17 @@ curl -o alignment_files/prepDE.py3 "https://raw.githubusercontent.com/mmclaughli
 cp -r /Volumes/DATA/DRI/URTHY/TARGTHER/mmclaughlin/indexes_ms_hisat2/ ./alignment_files/indexes/
 ```
 
-If the pre-prepared indexes folder on the RDS was not there, here is how you would source the files. Download the Mus Musculus .gtf file using curl and unzip. Download an already indexed Mus Musculus genome from the HISAT2 website.
+If the pre-prepared indexes folder on the RDS was not there, here is how you would source the files. Download the Mus Musculus .gtf file using `curl` and `unzip`. Download an already indexed Mus Musculus genome from the HISAT2 website. You might need to drag the files into the indexes folder. All the files should be in indexes, there should be none in subdirectories.
 
 ```
-curl -o alignment_files/indexes/Mus_musculus.GRCm38.102.gtf.gz "ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz"
-gunzip alignment_files/indexes/Mus_musculus.GRCm38.102.gtf.gz
+curl -o ./alignment_files/indexes/Mus_musculus.GRCm38.102.gtf.gz "ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz"
+gunzip ./alignment_files/indexes/Mus_musculus.GRCm38.102.gtf.gz
 
-
-curl -o ./put_here/grcm38.tar.gz "https://cloud.biohpc.swmed.edu/index.php/s/grcm38/download/grcm38.tar.gz"
-gunzip ./put_here/grcm38.tar.gz
-
-
-
-
+curl -o ./alignment_files/indexes/grcm38.tar.gz "https://cloud.biohpc.swmed.edu/index.php/s/grcm38/download/grcm38.tar.gz"
+tar -xvzf ./alignment_files/indexes/grcm38.tar.gz
 ```
 
-The final step is to go to the RDS project folder, and open scripts 2-7 in **Textmate**. You need to change the email address to be <your_name>@icr.ac.uk - sending emails to mmclaughlin@icr.ac.uk is the default and will not be of much use to you.
+The final step is to go to the RDS project folder, and open scripts 2-7 in **Textmate**. *You need to change the email address to be your_name@icr.ac.uk* - sending emails to mmclaughlin@icr.ac.uk is the default and will not be of much use to you.
 
 
 ## DOWNLOAD FASTQ FILES
