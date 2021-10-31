@@ -201,12 +201,17 @@ mkdir RNAseq_4434_JKVR_JKVR002_RP1aPD1
 cd RNAseq_4434_JKVR_JKVR002_RP1aPD1
 ```
 
-Create the directories `alignment_files/samples` and `alignment_files/indexes`. Download the alignment scripts from github using the first two lines starting with `curl`. There is a folder on the RDS was is already setup with the indexes files required. It is copied using the `cp` function. **The cp command is painfully slow over VPN - do it on site**.
+Create the directories `alignment_files/samples` and `alignment_files/indexes`. Download the alignment scripts from github using the first two lines starting with `curl`. 
 
 ```
 mkdir -p alignment_files/{samples,indexes}
 curl -O "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/master/{1_Rstudio_rename.R,2_sbatch_RDS_to_ALMA.sh,3_sbatch_qc1.sh,4_intbash_trim.sh,5_sbatch_qc2.sh,6_intbash_align.sh,7_sbatch_tidy.sh,8_localbash_cleanup.sh}"
 curl -o alignment_files/prepDE.py3 "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/master/prepDE.py3"
+```
+
+There is a folder on the RDS was is already setup with the indexes files required. It is copied using the `cp` function. **The cp command is painfully slow over VPN - do it on site**.
+
+```
 cp -r /Volumes/DATA/DRI/URTHY/TARGTHER/mmclaughlin/indexes_ms_hisat2/ ./alignment_files/indexes/
 ```
 
