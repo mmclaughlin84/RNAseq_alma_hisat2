@@ -209,11 +209,7 @@ curl -O "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/mast
 curl -o alignment_files/prepDE.py3 "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/master/prepDE.py3"
 ```
 
-There is a folder on the RDS was is already setup with the indexes files required. It is copied using the `cp` function. **The cp command is painfully slow over VPN - do it on site**.
-
-```
-cp -r /Volumes/DATA/DRI/URTHY/TARGTHER/mmclaughlin/indexes_ms_hisat2/ ./alignment_files/indexes/
-```
+**There is a folder on the RDS was is already setup with the indexes files required**. Using `cp` or `rsync` are both painfully slow do it is easier to do without using code. Find the directory/folder called `indexes_ms_hisat2` and right click, then select `Duplicate`. Rename the resulting folder to `indexes` and drag it so it is in the project folder `alignment_files/indexes`.
 
 If the pre-prepared indexes folder on the RDS was not there, here is how you would source the files. Download the Mus Musculus .gtf file using `curl` and `unzip`. Download an already indexed Mus Musculus genome from the HISAT2 website. You might need to drag the files into the indexes folder. All the files should be in indexes, there should be none in subdirectories.
 
