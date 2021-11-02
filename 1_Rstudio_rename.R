@@ -13,7 +13,7 @@ getwd() # to check
 # sample_names            = {experimentID}_{model}_{sampleID}_{timepoint}_{treatment}_{replicate} # NOTE: do not use hyphens
 # treatment_wo_timepoint  = vehicle/PD1/RT/RT_PD1/etc
 # timepoint               = 14d/21d, injected/contralateral, wt/KO, etc
-# treatment               = 14d_vehicle/14d_PD1/21d_vehicle/21d_PD1/etc (NOTE: timepoint BEFORE treatment)
+# treatment               = vehicle_14d/PD1_14d/vehicle_21d/PD1_21d/etc (NOTE: timepoint AFTER treatment - it is critical for DESeq script!)
 
 # list files using pattern to match only fastq files
 # Use grepl to create columns containing R1 and R2 files
