@@ -6,7 +6,7 @@ echo ${sample_names[@]}
 echo 'path:'$path
 
 for sample_name in ${sample_names[@]}; do
-	sbatch --time=01:30:00 --job-name=trim --partition=compute --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --cpus-per-task=8 --mem-per-cpu=1000 --output=log4_trim_${sample_name}.txt \
+	sbatch --time=02:00:00 --job-name=$sample_name --partition=compute --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --cpus-per-task=8 --mem-per-cpu=1000 --output=log4_trim_${sample_name}.txt \
 		--wrap="source activate MMrnaseqenv; \
 			echo $sample_name; \
 				srun trimmomatic PE $path/$sample_name/R1.fq.gz $path/$sample_name/R2.fq.gz \
