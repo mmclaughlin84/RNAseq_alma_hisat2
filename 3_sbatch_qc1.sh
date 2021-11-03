@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1                   			# Run a single task		
 #SBATCH --cpus-per-task=24            			# Number of threads per task (OMP threads, max=24)
 #SBATCH --mem-per-cpu=1000                    	# Job memory request
-#SBATCH --time=02:00:00							# Time limit hrs:min:sec <=24 ~15min; <=48 ~30min; etc
+#SBATCH --time=04:00:00							# Time limit hrs:min:sec <=24 ~15min; <=48 ~30min; etc
 #SBATCH --output=log3_fastqc1.txt				# Output txt log
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK # sets cpus per task from slurm job script above as i'm not using srun
@@ -66,7 +66,7 @@ echo '[...SYNC TO RDS...]'
 # leaving off the trailing / of both file addresses in rsync is important!
 wd=${PWD##*/} 
 
-sbatch --time=02:00:00 --job-name=syncRDS --partition=data-transfer --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --ntasks=1 --output=log3b_synctoRDS.txt \
+sbatch --time=03:00:00 --job-name=syncRDS --partition=data-transfer --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --ntasks=1 --output=log3b_synctoRDS.txt \
 	--wrap="echo $wd; mv --verbose ../$wd ../$wd\_complete; srun rsync -av /home/mmclaughlin/SCRATCH_mmclaughlin/$wd\_complete  /data/rds/DRI/URTHY/TARGTHER/mmclaughlin; mv --verbose ../$wd\_complete ../$wd"
 
 ### SCRIPT-END

@@ -19,7 +19,7 @@ getwd() # to check
 # Use grepl to create columns containing R1 and R2 files
 list.files(pattern = 'q.gz$', recursive = TRUE) # check here, then used in line below to make dataframe
 file_list <- data.frame(old_address = list.files(pattern = 'q.gz', recursive = TRUE))
-rename_details <- data.frame(R1_files = file_list[grepl('R1', file_list$old_address), ])
+rename_details <- data.frame(R1_files = file_list[grepl('R1', file_list$old_address), ]) # Careful in case you've used R1/R2 for some reason in a sample name!
 rename_details$R2_files <- file_list[grepl('R2', file_list$old_address), ]
 
 # Use gsub to extract old sample name and place in new column

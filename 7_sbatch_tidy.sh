@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1                   			# Run a single task		
 #SBATCH --cpus-per-task=4            			# Number of threads per task (OMP threads)
 #SBATCH --mem-per-cpu=1000                    	# Job memory request
-#SBATCH --time=00:10:00							# Time limit hrs:min:sec (give 15+5 min per paired-sample)
+#SBATCH --time=01:00:00							# Time limit hrs:min:sec (give 15+5 min per paired-sample)
 #SBATCH --output=log7_tidy.txt					# Output txt log
 
 

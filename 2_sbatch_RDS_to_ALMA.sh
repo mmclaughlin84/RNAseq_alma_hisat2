@@ -4,7 +4,7 @@
 #SBATCH --mail-type=END,FAIL					# Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=mmclaughlin@icr.ac.uk		# Where to send mail
 #SBATCH --ntasks=1
-#SBATCH --time=01:00:00							# Job time, very unlikely to take more than 30 min
+#SBATCH --time=03:00:00							# Job time, very unlikely to take more than 30 min
 #SBATCH --output=log2_SyncToALMA.txt			# Output log name
 
 # this copies the folder indicated on the RDS to the ALMA scratch location
