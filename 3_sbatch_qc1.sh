@@ -2,7 +2,7 @@
 #SBATCH --job-name=QC1							# Job name
 #SBATCH --partition=compute						# short queue for testing/compiling/debugging/benchmarking, not chargable, max 16cpus and 4h
 #SBATCH --mail-type=END,FAIL					# Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=mmclaughlin@icr.ac.uk		# Where to send mail
+#SBATCH --mail-user=user_name@icr.ac.uk		# Where to send mail
 #SBATCH --nodes=1                   		 	# Run all processes on a single node	
 #SBATCH --ntasks=1                   			# Run a single task		
 #SBATCH --cpus-per-task=24            			# Number of threads per task (OMP threads, max=24)
@@ -66,8 +66,8 @@ echo '[...SYNC TO RDS...]'
 # leaving off the trailing / of both file addresses in rsync is important!
 wd=${PWD##*/} 
 
-sbatch --time=03:00:00 --job-name=syncRDS --partition=data-transfer --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --ntasks=1 --output=log3b_synctoRDS.txt \
-	--wrap="echo $wd; mv --verbose ../$wd ../$wd\_complete; srun rsync -av /home/mmclaughlin/SCRATCH_mmclaughlin/$wd\_complete  /data/rds/DRI/URTHY/TARGTHER/mmclaughlin; mv --verbose ../$wd\_complete ../$wd"
+sbatch --time=03:00:00 --job-name=syncRDS --partition=data-transfer --mail-type=END,FAIL --mail-user=user_name@icr.ac.uk --ntasks=1 --output=log3b_synctoRDS.txt \
+	--wrap="echo $wd; mv --verbose ../$wd ../$wd\_complete; srun rsync -av /home/user_name/SCRATCH_user_name/$wd\_complete  /data/rds/DRI/URTHY/TARGTHER/user_name; mv --verbose ../$wd\_complete ../$wd"
 
 ### SCRIPT-END
 

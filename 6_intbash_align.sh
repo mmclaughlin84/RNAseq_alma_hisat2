@@ -23,7 +23,7 @@ echo $reference_gtf
 # single sbatch job for each individual PE sample
 for sample_name in ${sample_names[@]}
   do
-    sbatch --time=04:00:00 --job-name=${sample_name} --partition=compute --mail-type=END,FAIL --mail-user=mmclaughlin@icr.ac.uk --cpus-per-task=8 --mem-per-cpu=4000 --output=log6_align_${sample_name}.txt \
+    sbatch --time=04:00:00 --job-name=${sample_name} --partition=compute --mail-type=END,FAIL --mail-user=user_name@icr.ac.uk --cpus-per-task=8 --mem-per-cpu=4000 --output=log6_align_${sample_name}.txt \
 		--wrap="echo 'Sample_Name:'${sample_name}; echo 'SLURM_CPUS:'\$SLURM_CPUS_PER_TASK; module load SAMtools anaconda/3; source activate MMrnaseqenv; \
 			date; \
 				srun hisat2 -p \$SLURM_CPUS_PER_TASK --dta -x $reference_genome -1 alignment_files/samples/${sample_name}/R1_trim.fq.gz -2 alignment_files/samples/${sample_name}/R2_trim.fq.gz -S ${sample_name}.sam; \
