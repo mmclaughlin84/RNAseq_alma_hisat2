@@ -209,9 +209,12 @@ curl -O "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/mast
 curl -o alignment_files/prepDE.py3 "https://raw.githubusercontent.com/mmclaughlin84/RNAseq_alma_hisat2/master/prepDE.py3"
 ```
 
-**There is a folder on the RDS was is already setup with the indexes files required**. Using `cp` or `rsync` are both painfully slow do it is easier to do without using code. Find the directory/folder called `indexes_ms_hisat2` and right click, then select `Duplicate`. Rename the resulting folder to `indexes` and drag it so it is in the project folder `alignment_files/indexes`.
+**There is a folder on the RDS already setup with the indexes files required**. Due to the behaviour of working on the RDS it is much quicker to duplicate, rename, and move the files in this folder without using code. Step 1 - Find the directory/folder called `indexes_ms_hisat2` in TARGTHER/mmclaughlin/ and right click, then select `Duplicate`. Step 2 - Rename the resulting folder to `indexes` and drag it so it is in your project folder `alignment_files/indexes`.
 
-If the pre-prepared indexes folder on the RDS was not there, here is how you would source the files. Download the Mus Musculus .gtf file using `curl` and `unzip`. Download an already indexed Mus Musculus genome from the HISAT2 website. You might need to drag the files into the indexes folder. All the files should be in indexes, there should be none in subdirectories.
+The final step is to go to the RDS project folder, and open scripts 2-7 in **Textmate**. *You need to change the email address to be your_name@icr.ac.uk using find and replace (cmd-f/ctrl-f)* - sending emails to the default email will not be of much use to you.
+
+
+Additional Notes: You don't have to do this step with the four lines of code (curl, gunzip, curl, tar) below. But if you had to source the indexes files from scratch, here is how you would do it. Download the Mus Musculus .gtf file using `curl` and `unzip`. Download an already indexed Mus Musculus genome from the HISAT2 website. You might need to drag the files into the indexes folder. All the files should be in indexes, there should be no subdirectories.
 
 ```
 curl -o ./alignment_files/indexes/Mus_musculus.GRCm38.102.gtf.gz "ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz"
@@ -221,7 +224,6 @@ curl -o ./alignment_files/indexes/grcm38.tar.gz "https://cloud.biohpc.swmed.edu/
 tar -xvzf ./alignment_files/indexes/grcm38.tar.gz
 ```
 
-The final step is to go to the RDS project folder, and open scripts 2-7 in **Textmate**. *You need to change the email address to be your_name@icr.ac.uk* - sending emails to mmclaughlin@icr.ac.uk is the default and will not be of much use to you.
 
 
 ## DOWNLOAD FASTQ FILES
@@ -242,7 +244,7 @@ cd genewiz_project_folder # This is usually a string of numbers
 Set ‘local directory’, ie where on your computer to download the folder to. Use lls to confirm location is as expected.
 
 ```
-lcd /Volumes/DATA/DRI/URTHY/TARGTHER/vroulstone/RNAseq_4434_JKVR_JKVR002_RP1aPD1
+lcd /Volumes/DATA/DRI/URTHY/TARGTHER/vroulstone/RNAseq_4434_JKVR_JKVR002_RP1aPD1/alignment_files/samples/
 lls
 ```
 
