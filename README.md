@@ -45,7 +45,7 @@ These would take too long to explain, but you can and read about how to use them
 
 .
 
-# RNA-seq Alignment
+# Overview of ALMA
 
 ## ALMA login
 
